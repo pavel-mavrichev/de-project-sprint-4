@@ -33,7 +33,7 @@ class DeliveryReader:
                                     'object_value': delivery_dict,
                                     'update_ts': datetime.fromisoformat(delivery_dict['delivery_ts'])})
                 
-                params['offset'] += 1
+            params['offset'] += len(response_list)
 
             r = requests.get(self.delivery_api_endpoint + self.method_url, headers=self.headers, params=params)
 

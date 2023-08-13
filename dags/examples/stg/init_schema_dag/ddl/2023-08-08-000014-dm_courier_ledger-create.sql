@@ -20,5 +20,6 @@ CREATE TABLE if not exists cdm.dm_courier_ledger (
 	CONSTRAINT dm_courier_ledger_pkey PRIMARY KEY (id),
 	CONSTRAINT dm_courier_ledger_rate_avg_check CHECK ((rate_avg > (0)::numeric)),
 	CONSTRAINT dm_courier_ledger_settlement_month_check CHECK (((settlement_month >= 1) AND (settlement_month <= 12))),
-	CONSTRAINT dm_courier_ledger_settlement_year_check CHECK (((settlement_year >= 2020) AND (settlement_year <= 2099)))
+	CONSTRAINT dm_courier_ledger_settlement_year_check CHECK (((settlement_year >= 2020) AND (settlement_year <= 2099))),
+	CONSTRAINT dm_courier_ledger_courier_year_month_key UNIQUE(courier_id, settlement_year, settlement_month)
 );

@@ -20,9 +20,9 @@ def sprint5_cdm():
     dwh_pg_connect = ConnectionBuilder.pg_conn("PG_WAREHOUSE_CONNECTION")
 
     @task()
-    def update_courier_ledger():
+    def update_courier_ledger(dag_date_str):
 
-        today = datetime.date.today()
+        today = datetime.datetime.fromisoformat(dag_date_str)
         first = today.replace(day=1)
         last_month = first - datetime.timedelta(days=1)
         first_day_last_month = last_month.replace(day=1)
@@ -45,7 +45,7 @@ def sprint5_cdm():
                         "first_day_last_month": first_day_last_month
                     })
    
-    update_courier_ledger_task = update_courier_ledger()
+    update_courier_ledger_task = update_courier_ledger("{{ ds }}")
 
 
     # Задаем порядок выполнения. Таск только один, поэтому зависимостей нет.
